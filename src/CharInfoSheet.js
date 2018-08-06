@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 const styles = theme => ({
@@ -17,6 +16,7 @@ const styles = theme => ({
   },
 });
 
+/** This will be the editable version of the same sheet, I think. */
 function EditCharInfoSheet(props){};
 
 function _renderTableRows(props){
@@ -42,7 +42,7 @@ function CharInfoSheet(props) {
     <div>
       <Paper className={classes.root} elevation={1}>
         <Typography variant="headline" component="h3">
-          {props.sheets.charInfo.fields.name}
+          Character Information
         </Typography>
         <Table className={classes.table}>
           <TableBody>

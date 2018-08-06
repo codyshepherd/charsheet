@@ -55,6 +55,7 @@ class App extends Component {
     this.setState({ activeScreen: arg });
   };
 
+  /* Update any field in the CharInfo sheet by providing key and value */
   updateCharInfoField = (k, v) => {
     //let s = this.state;
     this.setState(s => ({

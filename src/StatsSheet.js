@@ -19,7 +19,7 @@ function StatsSheet(props) {
     <div>
       <Paper className={classes.root} elevation={1}>
         <Typography variant="headline" component="h3">
-          {props.sheets.charInfo.fields.name}
+          Stats Information
         </Typography>
         <Typography component="p">
           This will hold stats info.
