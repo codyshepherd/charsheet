@@ -12,25 +12,25 @@ const styles = theme => ({
   },
 });
 
-function StatsSheet(props) {
+function EditPortrait(props) {
   const { classes } = props;
 
   return (
     <div>
       <Paper className={classes.root} elevation={1}>
         <Typography variant="headline" component="h3">
-          {props.sheets.stats.title}
+          This is a sheet of paper.
         </Typography>
         <Typography component="p">
-          This will hold stats info.
+          Paper can be used to build surface or other elements for your application.
         </Typography>
       </Paper>
     </div>
   );
 }
 
-StatsSheet.propTypes = {
+EditPortrait.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(StatsSheet);
+export default withStyles(styles)(EditPortrait);
