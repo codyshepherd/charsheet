@@ -4,24 +4,36 @@ import './App.css';
 import MenuAppBar from './Bar';
 import ClippedDrawer from './Drawer';
 import Sheet from './Sheet';
+import CharInfoSheet from './CharInfoSheet';
+import Portrait from './Portrait';
+import StatsSheet from './StatsSheet';
 
 class App extends Component {
   state = {
     isEditing: false,
     charName: "Character Name",
+    activeScreen: <CharInfoSheet/>,
     portrait: undefined,
     sheets: {
       portrait: {
         title: "Portrait",
+        screen: <Portrait/>,
         path: undefined
       },
       charInfo: {
-        title: "Character Info"
+        title: "Character Info",
+        screen: <CharInfoSheet/>
       },
       stats: {
-        title: "Stats"
+        title: "Stats",
+        screen: <StatsSheet/>
       }
-    }
+    },
+  }
+
+  constructor(props) {
+    super(props);
+    this.updateSheet = this.updateSheet.bind(this);
   }
 
   handleEdit = () => {
@@ -33,6 +45,10 @@ class App extends Component {
 
   handleNameChange = (name) => {
     this.setState({ charName: name });
+  };
+
+  updateSheet = (arg) => {
+    this.setState({activeScreen: arg});
   };
 
   render() {
@@ -51,6 +67,8 @@ class App extends Component {
         />
         <ClippedDrawer
           sheets={this.state.sheets}
+          activeScreen={this.state.activeScreen}
+          updateSheet={this.updateSheet}
         />
       </div>
     );

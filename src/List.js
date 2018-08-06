@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Button from '@material-ui/core/Button'
 
 const styles = theme => ({
   root: {
@@ -15,10 +16,11 @@ const styles = theme => ({
 
 function _renderSection(props) {
     return Object.keys(props.sheets).map( (k) => {
-        //return <ListItem primaryText={props.sheets[k].title}/>;
+        var title = props.sheets[k].title;
+        var screen = props.sheets[k].screen;
         return (
-        <ListItem button>
-            <ListItemText primary={props.sheets[k].title}/>
+        <ListItem button onClick={() => {props.updateSheet(screen)}}>
+            <ListItemText primary={title}/>
         </ListItem>
         )
     });
