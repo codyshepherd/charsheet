@@ -16,9 +16,6 @@ const styles = theme => ({
   },
 });
 
-/** This will be the editable version of the same sheet, I think. */
-function EditCharInfoSheet(props){};
-
 function _renderTableRows(props){
     return Object.keys(props.sheets.charInfo.fields).map( (k) => {
         let val = props.sheets.charInfo.fields[k];
@@ -42,7 +39,7 @@ function CharInfoSheet(props) {
     <div>
       <Paper className={classes.root} elevation={1}>
         <Typography variant="headline" component="h3">
-          Character Information
+          
         </Typography>
         <Table className={classes.table}>
           <TableBody>

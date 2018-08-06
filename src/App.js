@@ -5,6 +5,7 @@ import MenuAppBar from './Bar';
 import ClippedDrawer from './Drawer';
 import Sheet from './Sheet';
 import CharInfoSheet from './CharInfoSheet';
+import EditCharInfoSheet  from './EditCharInfoSheet';
 import Portrait from './Portrait';
 import StatsSheet from './StatsSheet';
 
@@ -22,6 +23,7 @@ class App extends Component {
       charInfo: {
         title: "Character Info",
         screen: <CharInfoSheet/>,
+        editscreen: <EditCharInfoSheet/>,
         fields: {
           name: "Default Name",
           class: "",
