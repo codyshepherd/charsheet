@@ -32,22 +32,6 @@ function _renderTableRows(props){
     });
 };
 
-function _renderTableRows(props){
-    return Object.keys(props.sheets.charInfo.fields).map( (k) => {
-        let val = props.sheets.charInfo.fields[k];
-        return (
-        <TableRow>
-          <TableCell>
-            {k.charAt(0).toUpperCase() + k.substr(1).toLowerCase()}
-          </TableCell>
-          <TableCell>
-            {val}
-          </TableCell>
-        </TableRow>
-        )
-    });
-};
-
 function CharInfoSheet(props) {
   const { classes } = props;
 
