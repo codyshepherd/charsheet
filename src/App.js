@@ -7,6 +7,7 @@ import Sheet from './Sheet';
 import CharInfoSheet from './CharInfoSheet';
 import Portrait from './Portrait';
 import StatsSheet from './StatsSheet';
+import { loadCharacter, saveCharacter, rollDie } from './Utilities';
 
 class App extends Component {
   state = {
@@ -41,7 +42,21 @@ class App extends Component {
       this.setState({ isEditing: false })
     ) : (
       this.setState({ isEditing: true })
-   )}
+    )
+    // use these elsewhere, here for testing purposes
+    this.handleSave();
+    this.handleLoad();
+    console.log(rollDie(6,3));
+  }
+
+  handleSave = () => {
+    saveCharacter(this.state.charName, this.state);
+  }
+
+  handleLoad = () => {
+    let savedCharacter = loadCharacter(this.state.charName);
+    console.log(savedCharacter);
+  }
 
   handleNameChange = (name) => {
     this.setState({ charName: name });
