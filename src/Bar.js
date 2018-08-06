@@ -29,7 +29,7 @@ class MenuAppBar extends React.Component {
   state = {
     auth: true,
     anchorEl: null,
-    charName: 'Character Name',
+    open: false
   };
 
   handleChange = (event, checked) => {
@@ -52,7 +52,6 @@ class MenuAppBar extends React.Component {
     const { classes, charName } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
-
     return (
       <div className={classes.root}>
         <AppBar position="static">
