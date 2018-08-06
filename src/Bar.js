@@ -10,6 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { Avatar } from '@material-ui/core';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto'
+import Edit from '@material-ui/icons/Edit'
 
 const styles = {
   root: {
@@ -43,12 +44,12 @@ class MenuAppBar extends React.Component {
     this.setState({ anchorEl: null });
   };
 
-  charNameUpdate = (text) => {
-      this.setState({ charName: text})
-  };
+  handleEditClick = () => {
+    this.props.onEditToggle();
+  }
 
   render() {
-    const { classes } = this.props;
+    const { classes, charName } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
@@ -60,9 +61,11 @@ class MenuAppBar extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>
-              {this.state.charName}
-              onClick={this.charNameUpdate}
+              {charName}
             </Typography>
+            <IconButton color="inherit" onClick={this.handleEditClick}>
+               <Edit />
+            </IconButton>
             {auth && (
               <div>
                 <IconButton
@@ -71,9 +74,9 @@ class MenuAppBar extends React.Component {
                   onClick={this.handleMenu}
                   color="inherit"
                 >
-                  <Avatar className={classes.avatar}>
-                    <AddAPhotoIcon/>
-                  </Avatar>
+                <Avatar className={classes.avatar}>
+                  <AddAPhotoIcon/>
+                </Avatar>
                 </IconButton>
                 <Menu
                   id="menu-appbar"
