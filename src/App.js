@@ -23,7 +23,7 @@ class App extends Component {
         title: "Character Info",
         screen: <CharInfoSheet/>,
         fields: {
-          charName: "Character Name",
+          name: "Default Name",
           class: "",
           race: "",
           alignment: "",
@@ -51,8 +51,12 @@ class App extends Component {
       this.setState({ isEditing: true })
    )}
 
-  handleNameChange = (name) => {
-    let s = this.state;
+  updateSheet = (arg) => {
+    this.setState({ activeScreen: arg });
+  };
+
+  updateCharInfoField = (k, v) => {
+    //let s = this.state;
     this.setState(s => ({
       ...s,
       sheets: {
@@ -61,16 +65,12 @@ class App extends Component {
           ...s.sheets.charInfo,
           fields: {
             ...s.sheets.charInfo.fields,
-            charName: name
+            [k]: v
           }
         }
       }
     }));
-  };
-
-  updateSheet = (arg) => {
-    this.setState({ activeScreen: arg });
-  };
+  }
 
   render() {
     const { isEditing, sheets } = this.state;
@@ -79,17 +79,18 @@ class App extends Component {
       <div className="App">
         <MenuAppBar
           isEditing={isEditing}
-          charName={this.state.sheets.charInfo.fields.charName}
+          name={this.state.sheets.charInfo.fields.name}
           onEditToggle={this.handleEdit}
         />
         <Sheet
           isEditing={isEditing}
-          onNameChange={this.handleNameChange}
+          updateCharInfoField={this.updateCharInfoField}
         />
         <ClippedDrawer
           sheets={sheets}
           activeScreen={this.state.activeScreen}
           updateSheet={this.updateSheet}
+          updateCharInfoField={this.updateCharInfoField}
         />
       </div>
     );

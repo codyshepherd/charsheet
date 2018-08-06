@@ -51,7 +51,7 @@ function ClippedDrawer(props) {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-          {React.cloneElement(props.activeScreen, {sheets: props.sheets}) /* Necessary for adding props to component passed in as a prop*/} 
+          {React.cloneElement(props.activeScreen, {sheets: props.sheets, updateCharInfoField: props.updateCharInfoField}) /* Necessary for adding props to component passed in as a prop*/} 
       </main>
     </div>
   );

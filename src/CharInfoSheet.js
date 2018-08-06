@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 const styles = theme => ({
   root: {
@@ -14,6 +19,22 @@ const styles = theme => ({
 
 function EditCharInfoSheet(props){};
 
+function _renderTableRows(props){
+    return Object.keys(props.sheets.charInfo.fields).map( (k) => {
+        let val = props.sheets.charInfo.fields[k];
+        return (
+        <TableRow>
+          <TableCell>
+            {k.charAt(0).toUpperCase() + k.substr(1).toLowerCase()}
+          </TableCell>
+          <TableCell>
+            {val}
+          </TableCell>
+        </TableRow>
+        )
+    });
+};
+
 function CharInfoSheet(props) {
   const { classes } = props;
 
@@ -21,11 +42,13 @@ function CharInfoSheet(props) {
     <div>
       <Paper className={classes.root} elevation={1}>
         <Typography variant="headline" component="h3">
-          {props.sheets.charInfo.fields.charName}
+          {props.sheets.charInfo.fields.name}
         </Typography>
-        <Typography component="p">
-          This will hold character info.
-        </Typography>
+        <Table className={classes.table}>
+          <TableBody>
+            {_renderTableRows(props)}
+          </TableBody>
+        </Table>
       </Paper>
     </div>
   );

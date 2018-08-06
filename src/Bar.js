@@ -49,7 +49,7 @@ class MenuAppBar extends React.Component {
   }
 
   render() {
-    const { classes, charName } = this.props;
+    const { classes, name } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
     return (
@@ -60,7 +60,7 @@ class MenuAppBar extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>
-              {charName}
+              {name}
             </Typography>
             <IconButton color="inherit" onClick={this.handleEditClick}>
                <Edit />
