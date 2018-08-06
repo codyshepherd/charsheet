@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 
 import SectionsList from './List';
+import EditCharInfoSheet from './EditCharInfoSheet';
 
 const drawerWidth = 240;
 
@@ -32,6 +33,14 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
 });
 
+function checkEdit(props) {
+  if (props.isEditing){
+    return (React.cloneElement(props.activeEditScreen, {sheets: props.sheets}));
+  } else {
+    return (React.cloneElement(props.activeScreen, {sheets: props.sheets, updateCharInfoField: props.updateCharInfoField})); /* Necessary for adding props to component passed in as a prop*/
+  }
+};
+
 function ClippedDrawer(props) {
   const { classes } = props;
 
@@ -51,7 +60,7 @@ function ClippedDrawer(props) {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-          {React.cloneElement(props.activeScreen, {sheets: props.sheets, updateCharInfoField: props.updateCharInfoField}) /* Necessary for adding props to component passed in as a prop*/} 
+          { checkEdit(props) } 
       </main>
     </div>
   );

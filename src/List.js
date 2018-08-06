@@ -17,8 +17,9 @@ function _renderSection(props) {
     return Object.keys(props.sheets).map( (k) => {
         var title = props.sheets[k].title;
         var screen = props.sheets[k].screen;
+        var editScreen = props.sheets[k].editScreen;
         return (
-        <ListItem button onClick={() => {props.updateSheet(screen)}}>
+        <ListItem button onClick={() => {props.updateSheet(screen, editScreen)}}>
             <ListItemText primary={title}/>
         </ListItem>
         )

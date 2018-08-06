@@ -7,17 +7,21 @@ import Sheet from './Sheet';
 import CharInfoSheet from './CharInfoSheet';
 import EditCharInfoSheet  from './EditCharInfoSheet';
 import Portrait from './Portrait';
+import EditPortrait from './EditPortrait';
 import StatsSheet from './StatsSheet';
+import EditStatsSheet from './EditStatsSheet';
 
 class App extends Component {
   state = {
     isEditing: false,
     activeScreen: <CharInfoSheet/>,
+    activeEditScreen: <EditCharInfoSheet/>,
     portrait: undefined,
     sheets: {
       portrait: {
         title: "Portrait",
         screen: <Portrait/>,
+        editScreen: <EditPortrait/>,
         path: undefined
       },
       charInfo: {
@@ -34,6 +38,7 @@ class App extends Component {
       stats: {
         title: "Stats",
         screen: <StatsSheet/>,
+        editScreen: <EditStatsSheet/>,
         fields: {
           str: "",
         }
@@ -53,8 +58,9 @@ class App extends Component {
       this.setState({ isEditing: true })
    )}
 
-  updateSheet = (arg) => {
-    this.setState({ activeScreen: arg });
+  updateSheet = (screen, editScreen) => {
+    this.setState({ activeScreen: screen });
+    this.setState({ activeEditScreen: editScreen});
   };
 
   /* Update any field in the CharInfo sheet by providing key and value */
@@ -85,13 +91,17 @@ class App extends Component {
           name={this.state.sheets.charInfo.fields.name}
           onEditToggle={this.handleEdit}
         />
+        {/*}
         <Sheet
           isEditing={isEditing}
           updateCharInfoField={this.updateCharInfoField}
         />
+        */}
         <ClippedDrawer
+          isEditing={isEditing}
           sheets={sheets}
           activeScreen={this.state.activeScreen}
+          activeEditScreen={this.state.activeEditScreen}
           updateSheet={this.updateSheet}
           updateCharInfoField={this.updateCharInfoField}
         />
