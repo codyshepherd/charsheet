@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 
 import SectionsList from './List';
 
@@ -47,11 +47,12 @@ function ClippedDrawer(props) {
         <div className={classes.toolbar} />
         <SectionsList 
             sheets={props.sheets}
+            updateSheet={props.updateSheet}
         />
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Typography noWrap>{'Section-specific info should show up here.'}</Typography>
+            {props.activeScreen}
       </main>
     </div>
   );
