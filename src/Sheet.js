@@ -17,7 +17,7 @@ const styles = theme => ({
 
 class Sheet extends React.Component {
   handleNameChange = event => {
-    this.props.onNameChange(event.target.value);
+    this.props.updateCharInfoField("name", event.target.value);
   };
 
   render() {
@@ -31,7 +31,7 @@ class Sheet extends React.Component {
              <TextField
              id="name"
              label="Name"
-             value={this.props.charName}
+             value={this.props.name}
              colors="inherit"
              className={classes.textField}
              onChange={this.handleNameChange}

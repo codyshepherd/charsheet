@@ -32,6 +32,19 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
 });
 
+function checkEdit(props) {
+  if (props.isEditing){
+    return (React.cloneElement(props.activeEditScreen, {
+      sheets: props.sheets, 
+      updateCharInfoField: props.updateCharInfoField, 
+      toggleEdit: props.toggleEdit
+    }));
+  } else {
+    //return (React.cloneElement(props.activeScreen, {sheets: props.sheets, updateCharInfoField: props.updateCharInfoField})); /* Necessary for adding props to component passed in as a prop*/
+    return (React.cloneElement(props.activeScreen, {sheets: props.sheets})); /* Necessary for adding props to component passed in as a prop*/
+  }
+};
+
 function ClippedDrawer(props) {
   const { classes } = props;
 
@@ -51,7 +64,7 @@ function ClippedDrawer(props) {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-            {props.activeScreen}
+          { checkEdit(props) } 
       </main>
     </div>
   );
