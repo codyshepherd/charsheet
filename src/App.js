@@ -11,6 +11,10 @@ class App extends Component {
     charName: "Character Name",
     portrait: undefined,
     sheets: {
+      portrait: {
+        title: "Portrait",
+        path: undefined
+      },
       charInfo: {
         title: "Character Info"
       },
