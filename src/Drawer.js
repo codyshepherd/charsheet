@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 
 import SectionsList from './List';
-import EditCharInfoSheet from './EditCharInfoSheet';
 
 const drawerWidth = 240;
 
@@ -35,9 +34,14 @@ const styles = theme => ({
 
 function checkEdit(props) {
   if (props.isEditing){
-    return (React.cloneElement(props.activeEditScreen, {sheets: props.sheets}));
+    return (React.cloneElement(props.activeEditScreen, {
+      sheets: props.sheets, 
+      updateCharInfoField: props.updateCharInfoField, 
+      toggleEdit: props.toggleEdit
+    }));
   } else {
-    return (React.cloneElement(props.activeScreen, {sheets: props.sheets, updateCharInfoField: props.updateCharInfoField})); /* Necessary for adding props to component passed in as a prop*/
+    //return (React.cloneElement(props.activeScreen, {sheets: props.sheets, updateCharInfoField: props.updateCharInfoField})); /* Necessary for adding props to component passed in as a prop*/
+    return (React.cloneElement(props.activeScreen, {sheets: props.sheets})); /* Necessary for adding props to component passed in as a prop*/
   }
 };
 

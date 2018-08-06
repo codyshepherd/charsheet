@@ -8,6 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { TextField } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   root: {
@@ -20,44 +21,81 @@ const styles = theme => ({
   },
 });
 
-function _renderEditRows(props) {
-    return Object.keys(props.sheets.charInfo.fields).map( (k) => {
-        let val = props.sheets.charInfo.fields[k];
-        return (
-        <TableRow>
-          <TableCell>
-            {k.charAt(0).toUpperCase() + k.substr(1).toLowerCase()}
-          </TableCell>
-          <TableCell>
-              val
-            {/*
-            <TextField>
-                value={val}
-            </TextField>
-            */}
-          </TableCell>
-        </TableRow>
-        )
-    });
-};
+class EditCharInfoSheet extends React.Component {
+    state = {
+        fieldBuffer : {}
+    }
 
-function EditCharInfoSheet(props) {
-  const { classes } = props;
+    constructor(props) {
+        super(props);
 
-  return (
-    <div>
-      <Paper className={classes.root} elevation={1}>
-        <Typography variant="headline" component="h3">
-          {props.sheets.charInfo.title}
-        </Typography>
-        <Table className={classes.table}>
-          <TableBody>
-            {_renderEditRows(props)}
-          </TableBody>
-        </Table>
-      </Paper>
-    </div>
-  );
+       this.saveBuffers = this.saveBuffers.bind(this);
+       this.updateFieldBuffer = this.updateFieldBuffer.bind(this);
+       //this.renderEditRows = this.renderEditRows.bind(this);
+    };
+
+    saveBuffers() {
+        for(let k in this.state.fieldBuffer) {
+            this.props.updateCharInfoField(k, this.state.fieldBuffer[k]);
+        }
+        this.props.toggleEdit();
+    };
+
+    updateFieldBuffer(k, v) {
+        this.setState(prev => ({ 
+            ...prev,
+            fieldBuffer: {
+                ...prev.fieldBuffer,
+                [k]: v
+            }})
+        );
+    }
+
+    renderEditRows() {
+        //return Object.keys(this.state.fieldBuffer).map( (k) => {
+        return Object.keys(this.props.sheets.charInfo.fields).map( (k) => {
+            let val = this.props.sheets.charInfo.fields[k];
+            return (
+            <TableRow>
+              <TableCell>
+                {k.charAt(0).toUpperCase() + k.substr(1).toLowerCase()}
+              </TableCell>
+              <TableCell>
+                <TextField
+                    id={k}
+                    defaultValue={val}
+                    //onChange={(e) => {props.updateCharInfoField(k, e.target.value)}}
+                    onChange={(e) => {this.updateFieldBuffer(k, e.target.value)}}
+                />
+              </TableCell>
+            </TableRow>
+            )
+        });
+    };
+
+  render() {
+    const { classes } = this.props;
+    return (
+        <div>
+        <Paper className={classes.root} elevation={1}>
+            <Typography variant="headline" component="h3">
+                {this.props.sheets.charInfo.title}
+            </Typography>
+            <Table className={classes.table}>
+            <TableBody>
+                {this.renderEditRows()}
+            </TableBody>
+            </Table>
+            <Button color="primary" onClick={this.props.toggleEdit}>
+                Cancel
+            </Button>
+            <Button color="primary" onClick={this.saveBuffers}>
+                Save
+            </Button>
+        </Paper>
+        </div>
+    );
+  }
 }
 
 EditCharInfoSheet.propTypes = {

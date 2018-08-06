@@ -3,7 +3,6 @@ import './App.css';
 
 import MenuAppBar from './Bar';
 import ClippedDrawer from './Drawer';
-import Sheet from './Sheet';
 import CharInfoSheet from './CharInfoSheet';
 import EditCharInfoSheet  from './EditCharInfoSheet';
 import Portrait from './Portrait';
@@ -65,7 +64,6 @@ class App extends Component {
 
   /* Update any field in the CharInfo sheet by providing key and value */
   updateCharInfoField = (k, v) => {
-    //let s = this.state;
     this.setState(s => ({
       ...s,
       sheets: {
@@ -91,14 +89,9 @@ class App extends Component {
           name={this.state.sheets.charInfo.fields.name}
           onEditToggle={this.handleEdit}
         />
-        {/*}
-        <Sheet
-          isEditing={isEditing}
-          updateCharInfoField={this.updateCharInfoField}
-        />
-        */}
         <ClippedDrawer
           isEditing={isEditing}
+          toggleEdit={this.handleEdit}
           sheets={sheets}
           activeScreen={this.state.activeScreen}
           activeEditScreen={this.state.activeEditScreen}
