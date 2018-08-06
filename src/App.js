@@ -7,8 +7,11 @@ import ClippedDrawer from './Drawer';
 class App extends Component {
   state = {
     charName: 'Character Name',
-    portrait: undefined,
     sheets: {
+      portrait: {
+        title: "Portrait",
+        path: undefined
+      },
       charInfo: {
         title: "Character Info"
       },
