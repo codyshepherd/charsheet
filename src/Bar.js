@@ -8,8 +8,12 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import { Avatar } from '@material-ui/core';
+import { Avatar, TextField, DialogActions } from '@material-ui/core';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto'
+import EditIcon from '@material-ui/icons/Edit'
+import Dialog from '@material-ui/core/Dialog'
+import DialogContent from '@material-ui/core/DialogContent';
+import Button from '@material-ui/core/Button';
 
 const styles = {
   root: {
@@ -28,7 +32,7 @@ class MenuAppBar extends React.Component {
   state = {
     auth: true,
     anchorEl: null,
-    charName: 'Character Name',
+    open: false
   };
 
   handleChange = (event, checked) => {
@@ -43,8 +47,22 @@ class MenuAppBar extends React.Component {
     this.setState({ anchorEl: null });
   };
 
-  charNameUpdate = (text) => {
-      this.setState({ charName: text})
+  handleClickOpen = () => {
+    this.setState({open: true});
+  };
+
+  handleDialogClose = () => {
+      this.setState({open: false});
+  };
+
+  handleUpdate = (e) => {
+      this.props.nameChange(e.target.value);
+  };
+
+  detectEnterKey = (e) => {
+      if(e.keyCode === 13){
+          this.handleDialogClose();
+      }
   };
 
   render() {
@@ -60,9 +78,37 @@ class MenuAppBar extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>
-              {this.state.charName}
-              onClick={this.charNameUpdate}
+              {this.props.charName}
             </Typography>
+            <IconButton 
+                className={classes.button} 
+                aria-label="Edit"
+                color="inherit"
+                onClick={this.handleClickOpen}
+            >
+                <EditIcon />
+            </IconButton>
+            <Dialog
+                open={this.state.open}
+                onClose={this.handleDialogClose}
+                onKeyDown={this.detectEnterKey}
+            >
+                <DialogContent>
+                    <TextField 
+                        value={this.props.charName}
+                        onChange={this.handleUpdate}
+                        autoFocus={true}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={this.handleDialogClose} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={this.handleDialogClose} color="primary">
+                        Save
+                    </Button>
+                </DialogActions>
+            </Dialog>
             {auth && (
               <div>
                 <IconButton
