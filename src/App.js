@@ -2,14 +2,22 @@ import React, { Component } from 'react';
 import './App.css';
 
 import MenuAppBar from './Bar';
+import ClippedDrawer from './Drawer';
 import Sheet from './Sheet';
-
-
 
 class App extends Component {
   state = {
     isEditing: false,
-    charName: "",
+    charName: "Character Name",
+    portrait: undefined,
+    sheets: {
+      charInfo: {
+        title: "Character Info"
+      },
+      stats: {
+        title: "Stats"
+      }
+    }
   }
 
   handleEdit = () => {
@@ -36,6 +44,9 @@ class App extends Component {
         <Sheet
           isEditing={isEditing}
           onNameChange={this.handleNameChange}
+        />
+        <ClippedDrawer
+          sheets={this.state.sheets}
         />
       </div>
     );

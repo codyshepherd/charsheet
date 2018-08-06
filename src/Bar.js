@@ -8,16 +8,9 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import { Avatar, TextField, DialogActions } from '@material-ui/core';
+import { Avatar } from '@material-ui/core';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto'
-<<<<<<< HEAD
 import Edit from '@material-ui/icons/Edit'
-=======
-import EditIcon from '@material-ui/icons/Edit'
-import Dialog from '@material-ui/core/Dialog'
-import DialogContent from '@material-ui/core/DialogContent';
-import Button from '@material-ui/core/Button';
->>>>>>> Added Edit icon & functionality to AppBar
 
 const styles = {
   root: {
