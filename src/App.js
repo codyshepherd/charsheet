@@ -2,10 +2,20 @@ import React, { Component } from 'react';
 import './App.css';
 
 import MenuAppBar from './Bar';
+import ClippedDrawer from './Drawer';
 
 class App extends Component {
   state = {
     charName: 'Character Name',
+    portrait: undefined,
+    sheets: {
+      charInfo: {
+        title: "Character Info"
+      },
+      stats: {
+        title: "Stats"
+      }
+    }
   }
 
   constructor(props) {
@@ -23,6 +33,9 @@ class App extends Component {
         <MenuAppBar 
           charName={this.state.charName}
           nameChange={this.updateName}
+        />
+        <ClippedDrawer
+          sheets={this.state.sheets}
         />
       </div>
     );
