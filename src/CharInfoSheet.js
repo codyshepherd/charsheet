@@ -12,6 +12,8 @@ const styles = theme => ({
   },
 });
 
+function EditCharInfoSheet(props){};
+
 function CharInfoSheet(props) {
   const { classes } = props;
 
@@ -19,7 +21,7 @@ function CharInfoSheet(props) {
     <div>
       <Paper className={classes.root} elevation={1}>
         <Typography variant="headline" component="h3">
-          This is CharInfoSheet.
+          {props.sheets.charInfo.fields.charName}
         </Typography>
         <Typography component="p">
           This will hold character info.

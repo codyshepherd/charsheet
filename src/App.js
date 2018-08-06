@@ -11,7 +11,6 @@ import StatsSheet from './StatsSheet';
 class App extends Component {
   state = {
     isEditing: false,
-    charName: "Character Name",
     activeScreen: <CharInfoSheet/>,
     portrait: undefined,
     sheets: {
@@ -22,11 +21,20 @@ class App extends Component {
       },
       charInfo: {
         title: "Character Info",
-        screen: <CharInfoSheet/>
+        screen: <CharInfoSheet/>,
+        fields: {
+          charName: "Character Name",
+          class: "",
+          race: "",
+          alignment: "",
+        },
       },
       stats: {
         title: "Stats",
-        screen: <StatsSheet/>
+        screen: <StatsSheet/>,
+        fields: {
+          str: "",
+        }
       }
     },
   }
@@ -44,21 +52,34 @@ class App extends Component {
    )}
 
   handleNameChange = (name) => {
-    this.setState({ charName: name });
+    let s = this.state;
+    this.setState(s => ({
+      ...s,
+      sheets: {
+        ...s.sheets,
+        charInfo: {
+          ...s.sheets.charInfo,
+          fields: {
+            ...s.sheets.charInfo.fields,
+            charName: name
+          }
+        }
+      }
+    }));
   };
 
   updateSheet = (arg) => {
-    this.setState({activeScreen: arg});
+    this.setState({ activeScreen: arg });
   };
 
   render() {
-      const { isEditing, charName } = this.state;
+    const { isEditing, sheets } = this.state;
 
     return (
       <div className="App">
         <MenuAppBar
           isEditing={isEditing}
-          charName={charName}
+          charName={this.state.sheets.charInfo.fields.charName}
           onEditToggle={this.handleEdit}
         />
         <Sheet
@@ -66,7 +87,7 @@ class App extends Component {
           onNameChange={this.handleNameChange}
         />
         <ClippedDrawer
-          sheets={this.state.sheets}
+          sheets={sheets}
           activeScreen={this.state.activeScreen}
           updateSheet={this.updateSheet}
         />
