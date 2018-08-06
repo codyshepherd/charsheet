@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 
 import SectionsList from './List';
-import EditCharInfoSheet from './EditCharInfoSheet';
 
 const drawerWidth = 240;
 
