@@ -23,7 +23,8 @@ const styles = theme => ({
 
 class EditCharInfoSheet extends React.Component {
     state = {
-        fieldBuffer : {}
+        fieldBuffer : {},
+        bufferSaved : false
     }
 
     constructor(props) {
@@ -38,8 +39,8 @@ class EditCharInfoSheet extends React.Component {
         for(let k in this.state.fieldBuffer) {
             this.props.updateCharInfoField(k, this.state.fieldBuffer[k]);
         }
+        this.bufferSaved = true;
         this.props.toggleEdit();
-        // this.props.saveCharacter();
     };
 
     updateFieldBuffer(k, v) {
@@ -75,7 +76,8 @@ class EditCharInfoSheet extends React.Component {
     };
 
     componentWillUnmount() {
-       this.props.saveCharacter();
+      if (this.bufferSaved) { this.props.saveCharacter(); }
+      this.bufferSaved = false;
     }
 
   render() {
