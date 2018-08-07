@@ -37,7 +37,8 @@ function checkEdit(props) {
     return (React.cloneElement(props.activeEditScreen, {
       sheets: props.sheets, 
       updateCharInfoField: props.updateCharInfoField, 
-      toggleEdit: props.toggleEdit
+      toggleEdit: props.toggleEdit,
+      saveCharacter: props.saveCharacter,
     }));
   } else {
     //return (React.cloneElement(props.activeScreen, {sheets: props.sheets, updateCharInfoField: props.updateCharInfoField})); /* Necessary for adding props to component passed in as a prop*/
