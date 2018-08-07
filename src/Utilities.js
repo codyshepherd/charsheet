@@ -17,4 +17,10 @@ const rollDie = (faces, numRolls) => {
   return result;
 };
 
-export { loadCharacter, saveCharacter, rollDie }
+const getUUID = (cb) => {
+  fetch('https://www.uuidgenerator.net/api/version4')
+    .then(response => response.text()
+    .then(text => cb(text)));
+}
+
+export { loadCharacter, saveCharacter, rollDie, getUUID }

@@ -39,6 +39,7 @@ class EditCharInfoSheet extends React.Component {
             this.props.updateCharInfoField(k, this.state.fieldBuffer[k]);
         }
         this.props.toggleEdit();
+        // this.props.saveCharacter();
     };
 
     updateFieldBuffer(k, v) {
@@ -72,6 +73,10 @@ class EditCharInfoSheet extends React.Component {
             )
         });
     };
+
+    componentWillUnmount() {
+       this.props.saveCharacter();
+    }
 
   render() {
     const { classes } = this.props;
