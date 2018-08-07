@@ -9,6 +9,7 @@ import Portrait from './Portrait';
 import EditPortrait from './EditPortrait';
 import StatsSheet from './StatsSheet';
 import EditStatsSheet from './EditStatsSheet';
+import { Stats } from './ADD2';
 
 class App extends Component {
   state = {
@@ -26,7 +27,7 @@ class App extends Component {
       charInfo: {
         title: "Character Info",
         screen: <CharInfoSheet/>,
-        editscreen: <EditCharInfoSheet/>,
+        editScreen: <EditCharInfoSheet/>,
         fields: {
           name: "Default Name",
           class: "",
@@ -39,7 +40,12 @@ class App extends Component {
         screen: <StatsSheet/>,
         editScreen: <EditStatsSheet/>,
         fields: {
-          str: "",
+          str: {},
+          dex: {},
+          con: {},
+          int: {},
+          wis: {},
+          cha: {},
         }
       }
     },
@@ -48,6 +54,48 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.updateSheet = this.updateSheet.bind(this);
+    //this.readRuleset = this.readRuleset.bind(this);
+  }
+
+  componentDidMount() {
+    this.readRuleset();
+  }
+
+  readRuleset() {
+    for (let k in this.state.sheets.stats.fields) {
+      console.log("key " + k);
+      let updater = (prevState, props) => {
+        return {
+          ...prevState,
+          sheets: {
+            ...prevState.sheets,
+            stats: {
+              ...prevState.sheets.stats,
+              fields: {
+                ...prevState.sheets.stats.fields,
+                [k]: Stats[k]
+              }
+            }
+          }
+        }
+      }
+      this.setState(updater);
+      /*
+      this.setState(s => ({
+        ...s,
+        sheets: {
+          ...s.sheets,
+          stats: {
+            ...s.sheets.stats,
+            fields: {
+              ...s.sheets.stats.fields,
+              [k]: Stats[k]
+            }
+          }
+        }
+      }));
+      */
+    }
   }
 
   handleEdit = () => {
