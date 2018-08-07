@@ -2,6 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 import SectionsList from './List';
 
@@ -10,7 +16,7 @@ const drawerWidth = 240;
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: 430,
+    height: 800,
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
@@ -30,6 +36,18 @@ const styles = theme => ({
     minWidth: 0, // So the Typography noWrap works
   },
   toolbar: theme.mixins.toolbar,
+  paper: {
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
+  },
+  card: {
+    flexGrow: 1,
+    maxWidth: 345,
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
 });
 
 function checkEdit(props) {
@@ -41,8 +59,8 @@ function checkEdit(props) {
       saveCharacter: props.saveCharacter,
     }));
   } else {
-    //return (React.cloneElement(props.activeScreen, {sheets: props.sheets, updateCharInfoField: props.updateCharInfoField})); /* Necessary for adding props to component passed in as a prop*/
-    return (React.cloneElement(props.activeScreen, {sheets: props.sheets})); /* Necessary for adding props to component passed in as a prop*/
+    //return (React.cloneElement(props.activeScreen, {sheets: props.sheets, updateCharInfoField: props.updateCharInfoField}));
+    return (React.cloneElement(props.activeScreen, {sheets: props.sheets})); 
   }
 };
 
@@ -65,6 +83,33 @@ function ClippedDrawer(props) {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
+        <Paper className={classes.paper}>
+          <List style={{display: 'flex', flexDirection: 'row'}}>
+            <ListItem style={{display: 'block'}}>
+              <Typography variant="display2">
+                {props.sheets.charInfo.fields.name}
+              </Typography>
+              <Typography variant="display1">
+                {props.sheets.charInfo.fields.class}
+              </Typography>
+              <Typography variant="display1">
+                {props.sheets.charInfo.fields.race}
+              </Typography>
+              <Typography variant="display1">
+                {props.sheets.charInfo.fields.alignment}
+              </Typography>
+            </ListItem>
+            <ListItem>
+              <Card className={classes.card}>
+                <CardMedia
+                  className={classes.media}
+                  image=""
+                  title="Contemplative Reptile"
+                />
+              </Card>
+            </ListItem>
+          </List>
+        </Paper>
           { checkEdit(props) } 
       </main>
     </div>
