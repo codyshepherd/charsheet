@@ -82,21 +82,6 @@ class App extends Component {
         }
       }
       this.setState(updater);
-      /*
-      this.setState(s => ({
-        ...s,
-        sheets: {
-          ...s.sheets,
-          stats: {
-            ...s.sheets.stats,
-            fields: {
-              ...s.sheets.stats.fields,
-              [k]: Stats[k]
-            }
-          }
-        }
-      }));
-      */
     }
   }
 
