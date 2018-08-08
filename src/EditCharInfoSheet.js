@@ -110,3 +110,4 @@ EditCharInfoSheet.propTypes = {
 };
 
 export default withStyles(styles)(EditCharInfoSheet);
+

@@ -1,41 +1,53 @@
-import React, { Component } from 'react';
-//import PropTypes from 'prop-types';
-import ImageUploader from 'react-images-upload';
-import Img from 'react-image';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
-class Portrait extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { 
-            pictures: [],
-            urls: [] 
-        };
-        this.onDrop = this.onDrop.bind(this);
-    }
+const styles = {
+  card: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+};
 
-    onDrop(pictureFiles, pictureDataURLs) {
-        this.setState({
-            pictures: this.state.pictures.concat(pictureFiles),
-            urls: this.state.pictures.concat(pictureDataURLs)
-        });
-    }
-
-    render() {
-        return (
-            <Img src = {null}
-            loader={
-                <ImageUploader
-                    withIcon={true}
-                    buttonText='Choose image'
-                    onChange={this.onDrop}
-                    imgExtension={['.jpg', '.gif', '.png']}
-                    maxFileSize={5242880}
-                    singleImage={true}
-                />
-            }
-            />
-        );
-    }
+function Portrait(props) {
+  const { classes } = props;
+  return (
+    <div>
+      <Card className={classes.card}>
+        <CardMedia
+          className={classes.media}
+          image="/static/beh.jpg"
+          title="Contemplative Reptile"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="headline" component="h2">
+            {props.sheets.charInfo.fields.name}
+          </Typography>
+          <Typography component="p">
+            Maybe we can link this section up to a brief character description somewhere.
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Button size="small" color="primary">
+            Edit
+          </Button>
+        </CardActions>
+      </Card>
+    </div>
+  );
 }
 
-export default Portrait;
+Portrait.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Portrait);

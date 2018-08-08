@@ -10,6 +10,7 @@ import EditPortrait from './EditPortrait';
 import StatsSheet from './StatsSheet';
 import { loadCharacter, saveCharacter, rollDie, getUUID } from './Utilities';
 import EditStatsSheet from './EditStatsSheet';
+import { Stats } from './ADD2';
 
 class App extends Component {
   state = {
@@ -28,7 +29,7 @@ class App extends Component {
       charInfo: {
         title: "Character Info",
         screen: <CharInfoSheet/>,
-        editscreen: <EditCharInfoSheet/>,
+        editScreen: <EditCharInfoSheet/>,
         fields: {
           name: "Default Name",
           class: "",
@@ -41,7 +42,12 @@ class App extends Component {
         screen: <StatsSheet/>,
         editScreen: <EditStatsSheet/>,
         fields: {
-          str: "",
+          str: {},
+          dex: {},
+          con: {},
+          int: {},
+          wis: {},
+          cha: {},
         }
       }
     },
@@ -50,6 +56,32 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.updateSheet = this.updateSheet.bind(this);
+  }
+
+  componentDidMount() {
+    this.readRuleset();
+  }
+
+  readRuleset() {
+    for (let k in this.state.sheets.stats.fields) {
+      console.log("key " + k);
+      let updater = (prevState, props) => {
+        return {
+          ...prevState,
+          sheets: {
+            ...prevState.sheets,
+            stats: {
+              ...prevState.sheets.stats,
+              fields: {
+                ...prevState.sheets.stats.fields,
+                [k]: Stats[k]
+              }
+            }
+          }
+        }
+      }
+      this.setState(updater);
+    }
   }
 
   toggleEdit = () => {
