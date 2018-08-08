@@ -14,6 +14,10 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
   },
+  titleText: {
+    fontFamily: '"MedievalSharp", cursive',
+    fontSize: 28
+  },
 });
 
 function _renderTableRows(props){
@@ -38,7 +42,7 @@ function CharInfoSheet(props) {
   return (
     <div>
       <Paper className={classes.root} elevation={1}>
-        <Typography variant="headline" component="h3">
+        <Typography style={styles.titleText} variant="headline" component="h3">
           {props.sheets.charInfo.title}
         </Typography>
         <Table className={classes.table}>

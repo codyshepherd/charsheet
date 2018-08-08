@@ -6,7 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import Edit from '@material-ui/icons/Edit'
+import Edit from '@material-ui/icons/Edit';
 
 const styles = {
   root: {
@@ -19,6 +19,10 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
+  nameText: {
+      fontFamily: '"MedievalSharp", cursive',
+      fontSize: 28
+  }
 };
 
 class MenuAppBar extends React.Component {
@@ -32,6 +36,7 @@ class MenuAppBar extends React.Component {
     this.props.onEditToggle();
   }
 
+
   render() {
     const { classes, name } = this.props;
     return (
@@ -41,7 +46,7 @@ class MenuAppBar extends React.Component {
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon />
             </IconButton>
-            <Typography variant="title" color="inherit" className={classes.flex}>
+            <Typography style={styles.nameText} variant="title" color="inherit" className={classes.flex}>
               {name}
             </Typography>
             <IconButton color="inherit" onClick={this.handleEditClick}>

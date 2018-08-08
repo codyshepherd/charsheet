@@ -10,6 +10,26 @@ import EditPortrait from './EditPortrait';
 import StatsSheet from './StatsSheet';
 import { loadCharacter, saveCharacter, rollDie, getUUID } from './Utilities';
 import EditStatsSheet from './EditStatsSheet';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+    palette: {
+        type: 'dark',
+        typography: {
+            // does not apply across components
+            fontFamily: '"Lato", serif',
+        },
+        primary: {
+            main: '#700303',
+            contrastText: '#fff',
+        },
+        secondary: {
+            main: '#ffe500',
+            contrastText: '#000',
+        },
+    },
+});
+
 
 class App extends Component {
   state = {
@@ -104,23 +124,25 @@ class App extends Component {
     const { isEditing, sheets } = this.state;
 
     return (
-      <div className="App">
-        <MenuAppBar
-          isEditing={isEditing}
-          name={this.state.sheets.charInfo.fields.name}
-          onEditToggle={this.toggleEdit}
-        />
-        <ClippedDrawer
-          isEditing={isEditing}
-          toggleEdit={this.toggleEdit}
-          saveCharacter={this.handleSave}
-          sheets={sheets}
-          activeScreen={this.state.activeScreen}
-          activeEditScreen={this.state.activeEditScreen}
-          updateSheet={this.updateSheet}
-          updateCharInfoField={this.updateCharInfoField}
-        />
-      </div>
+      <MuiThemeProvider theme={theme}>
+        <div className="App">
+          <MenuAppBar
+            isEditing={isEditing}
+            name={this.state.sheets.charInfo.fields.name}
+            onEditToggle={this.toggleEdit}
+          />
+          <ClippedDrawer
+            isEditing={isEditing}
+            toggleEdit={this.toggleEdit}
+            saveCharacter={this.handleSave}
+            sheets={sheets}
+            activeScreen={this.state.activeScreen}
+            activeEditScreen={this.state.activeEditScreen}
+            updateSheet={this.updateSheet}
+            updateCharInfoField={this.updateCharInfoField}
+          />
+        </div>
+      </MuiThemeProvider>
     );
   }
 }
