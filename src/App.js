@@ -56,7 +56,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.updateSheet = this.updateSheet.bind(this);
-    //this.readRuleset = this.readRuleset.bind(this);
   }
 
   componentDidMount() {

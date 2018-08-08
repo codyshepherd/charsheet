@@ -121,3 +121,4 @@ ClippedDrawer.propTypes = {
 };
 
 export default withStyles(styles)(ClippedDrawer);
+
