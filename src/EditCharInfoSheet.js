@@ -93,10 +93,10 @@ class EditCharInfoSheet extends React.Component {
                 {this.renderEditRows()}
             </TableBody>
             </Table>
-            <Button color="primary" onClick={this.props.toggleEdit}>
+            <Button color="secondary" onClick={this.props.toggleEdit}>
                 Cancel
             </Button>
-            <Button color="primary" onClick={this.saveBuffers}>
+            <Button color="secondary" onClick={this.saveBuffers}>
                 Save
             </Button>
         </Paper>
@@ -110,3 +110,4 @@ EditCharInfoSheet.propTypes = {
 };
 
 export default withStyles(styles)(EditCharInfoSheet);
+
