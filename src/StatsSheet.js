@@ -18,16 +18,20 @@ const styles = theme => ({
     height: 400,
     overflow: 'auto',
   },
+  title: {
+    paddingBottom: theme.spacing.unit * 2,
+  }
 });
 
 function _renderRow(fields) {
   return Object.keys(fields).map( (k) => {
-    let val = fields[k];
+    let tag = fields[k][0]
+    let val = fields[k][1];
     if (k == "score"){
       return (
       <TableCell>
-        <Typography variant="body2">
-          {val}
+        <Typography variant="body2" style={{fontWeight: "bold", fontSize: 20}}>
+          {(val==="") ? "0" : val}
         </Typography>
       </TableCell>
       )
@@ -35,10 +39,10 @@ function _renderRow(fields) {
     return (
       <TableCell>
         <Typography variant="body1">
-          {k}
+          {tag}
         </Typography>
         <Typography variant="body1">
-          {val}
+          {(val==="") ? "0" : val}
         </Typography>
       </TableCell>
     )
@@ -51,7 +55,7 @@ function _renderTableRows(props) {
     return (
     <TableRow>
       <TableCell>
-        <Typography variant="display1">
+        <Typography variant="headline">
           {k.toUpperCase()}
         </Typography>
       </TableCell>
@@ -70,8 +74,8 @@ function StatsSheet(props) {
         <Typography variant="headline" component="h3">
           {props.sheets.stats.title}
         </Typography>
-        <Typography component="p">
-          This will hold stats info.
+        <Typography className={classes.title} variant="subheading" component="p">
+          Character ability stats and substats.
         </Typography>
         <Table className={classes.table}>
           <TableBody>
