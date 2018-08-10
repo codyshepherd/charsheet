@@ -57,6 +57,8 @@ function checkEdit(props) {
       updateCharInfoField: props.updateCharInfoField, 
       toggleEdit: props.toggleEdit,
       saveCharacter: props.saveCharacter,
+      increment: props.increment,
+      decrement: props.decrement,
     }));
   } else {
     //return (React.cloneElement(props.activeScreen, {sheets: props.sheets, updateCharInfoField: props.updateCharInfoField}));

@@ -7,6 +7,7 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   root: {
@@ -26,15 +27,6 @@ class StatsSheet extends React.Component {
     first: false,
   }
 
-  /*
-  componentDidMount() {
-    if (this.state.first === false){
-      this.props.initialize();
-    }
-    this.setState({first: true})
-  }
-  */
-
   // fields: a dict of substats with first key "score"
   renderRow = (fields) => {
     let score = fields["score"][1];
@@ -45,9 +37,16 @@ class StatsSheet extends React.Component {
       if (k === "score"){
         return (
         <TableCell>
+          {/*
           <Typography variant="body2" style={{fontWeight: "bold", fontSize: 20}}>
             {(val==="") ? "0" : val}
           </Typography>
+          */}
+          <Button variant="fab" color="secondary" disableRipple disableFocusRipple>
+            <Typography style={{fontWeight: "bold", fontSize: 20, color: "white"}}>
+              {(val==="") ? "0" : val}
+            </Typography>
+          </Button>
         </TableCell>
         )
       }

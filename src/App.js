@@ -57,6 +57,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.updateSheet = this.updateSheet.bind(this);
+    this.incrementStat = this.incrementStat.bind(this);
+    this.decrementStat = this.decrementStat.bind(this);
 
     // Read in ruleset
     for (let k in this.state.sheets.stats.fields) {
@@ -87,89 +89,13 @@ class App extends Component {
         }
       }
     }
-
-
   }
 
   componentDidMount() {
-    //this.readRuleset();
-    //this.initializeStats();
-    console.log(JSON.stringify(this.state))
   }
 
   componentDidUpdate() {
   }
-
-  /*
-  initializeStats() {
-    for (let k in this.state.sheets.stats.fields) {
-      var array = undefined;
-      if (k === "Str"){
-        array = Str(9);
-      } else if (k === "Dex") {
-        array = Dex(9);
-      } else if (k === "Con") {
-        array = Con(9);
-      } else if (k === "Int") {
-        array = Int(9);
-      } else if (k === "Wis") {
-        array = Wis(9);
-      } else if (k === "Cha") {
-        array = Cha(9);
-      }
-      var i = 0;
-      for (let j of Object.keys(this.state.sheets.stats.fields[k])) {
-        console.log(j)
-        let tuple = this.state.sheets.stats.fields[k][j];
-        console.log(tuple)
-        let setter = (prevState, props) => {
-          return {
-            ...prevState,
-            sheets: {
-              ...prevState.sheets,
-              stats: {
-                ...prevState.sheets.stats,
-                fields: {
-                  ...prevState.sheets.stats.fields,
-                  [k]: {
-                    ...prevState.sheets.stats.fields[k],
-                    [j]: [tuple[0], array[i]]
-                  }
-                }
-              }
-            }
-          }
-        }
-        this.setState(setter);
-        console.log(this.state.sheets.stats.fields[k][j])
-        i++
-      }
-    }
-  }
-  */
-
-  /*
-  readRuleset() {
-    for (let k in this.state.sheets.stats.fields) {
-      let updater = (prevState, props) => {
-        return {
-          ...prevState,
-          sheets: {
-            ...prevState.sheets,
-            stats: {
-              ...prevState.sheets.stats,
-              fields: {
-                ...prevState.sheets.stats.fields,
-                [k]: Stats[k]
-              }
-            }
-          }
-        }
-      }
-      this.setState(updater);
-    }
-  }
-  */
 
   toggleEdit = () => {
     this.state.isEditing ? (
@@ -201,6 +127,48 @@ class App extends Component {
     this.setState({ activeScreen: screen });
     this.setState({ activeEditScreen: editScreen});
   };
+
+  incrementStat(stat) {
+    let cur = this.state.sheets.stats.fields[stat]["score"]
+    let val = (cur[1]==25 ? 25 : cur[1]+1)
+    this.setState(s => ({
+      ...s,
+      sheets: {
+        ...s.sheets,
+        charInfo: {
+          ...s.sheets.stats,
+          fields: {
+            ...s.sheets.stats.fields,
+            [stat]: {
+              ...s.sheets.stats.fields[stat],
+              score: [cur[0], val]
+            }
+          }
+        }
+      }
+    }));
+  }
+
+  decrementStat(stat) {
+    let cur = this.state.sheets.stats.fields[stat]["score"]
+    let val = (cur[1]==0 ? 0 : cur[1]-1)
+    this.setState(s => ({
+      ...s,
+      sheets: {
+        ...s.sheets,
+        charInfo: {
+          ...s.sheets.stats,
+          fields: {
+            ...s.sheets.stats.fields,
+            [stat]: {
+              ...s.sheets.stats.fields[stat],
+              score: [cur[0], val]
+            }
+          }
+        }
+      }
+    }));
+  }
 
   /* Update any field in the CharInfo sheet by providing key and value */
   updateCharInfoField = (k, v) => {
@@ -239,6 +207,8 @@ class App extends Component {
           updateSheet={this.updateSheet}
           updateCharInfoField={this.updateCharInfoField}
           initialize={this.initialize}
+          increment={this.incrementStat}
+          decrement={this.decrementStat}
         />
       </div>
     );
