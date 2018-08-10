@@ -10,11 +10,12 @@ import EditPortrait from './EditPortrait';
 import StatsSheet from './StatsSheet';
 import { loadCharacter, saveCharacter, rollDie, getUUID } from './Utilities';
 import EditStatsSheet from './EditStatsSheet';
-import { Stats } from './ADD2';
+import { Stats, Str, Dex, Con, Int, Wis, Cha } from './ADD2';
 
 class App extends Component {
   state = {
     id: undefined,
+    isInitialized: false,
     isEditing: false,
     activeScreen: <CharInfoSheet/>,
     activeEditScreen: <EditCharInfoSheet/>,
@@ -42,12 +43,12 @@ class App extends Component {
         screen: <StatsSheet/>,
         editScreen: <EditStatsSheet/>,
         fields: {
-          str: {},
-          dex: {},
-          con: {},
-          int: {},
-          wis: {},
-          cha: {},
+          Str: {},
+          Dex: {},
+          Con: {},
+          Int: {},
+          Wis: {},
+          Cha: {},
         }
       }
     },
@@ -56,15 +57,100 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.updateSheet = this.updateSheet.bind(this);
+
+    // Read in ruleset
+    for (let k in this.state.sheets.stats.fields) {
+      this.state.sheets.stats.fields[k] = Stats[k];
+          // Initialize Stats to scores of 9
+      let array = undefined;
+      if (k === "Str"){
+        array = Str(9);
+      } else if (k === "Dex") {
+        array = Dex(9);
+      } else if (k === "Con") {
+        array = Con(9);
+      } else if (k === "Int") {
+        array = Int(9);
+      } else if (k === "Wis") {
+        array = Wis(9);
+      } else if (k === "Cha") {
+        array = Cha(9);
+      }
+
+      var i = 0;
+      for (let j of Object.keys(Stats[k])){
+        if (j === "score"){
+          this.state.sheets.stats.fields[k][j][1] = 9;
+        } else {
+          this.state.sheets.stats.fields[k][j] = [Stats[k][j], array[i]]
+          i++
+        }
+      }
+    }
+
+
   }
 
   componentDidMount() {
-    this.readRuleset();
+    //this.readRuleset();
+    //this.initializeStats();
+    console.log(JSON.stringify(this.state))
   }
 
+  componentDidUpdate() {
+  }
+
+  /*
+  initializeStats() {
+    for (let k in this.state.sheets.stats.fields) {
+      var array = undefined;
+      if (k === "Str"){
+        array = Str(9);
+      } else if (k === "Dex") {
+        array = Dex(9);
+      } else if (k === "Con") {
+        array = Con(9);
+      } else if (k === "Int") {
+        array = Int(9);
+      } else if (k === "Wis") {
+        array = Wis(9);
+      } else if (k === "Cha") {
+        array = Cha(9);
+      }
+      var i = 0;
+      for (let j of Object.keys(this.state.sheets.stats.fields[k])) {
+        console.log(j)
+        let tuple = this.state.sheets.stats.fields[k][j];
+        console.log(tuple)
+        let setter = (prevState, props) => {
+          return {
+            ...prevState,
+            sheets: {
+              ...prevState.sheets,
+              stats: {
+                ...prevState.sheets.stats,
+                fields: {
+                  ...prevState.sheets.stats.fields,
+                  [k]: {
+                    ...prevState.sheets.stats.fields[k],
+                    [j]: [tuple[0], array[i]]
+                  }
+                }
+              }
+            }
+          }
+        }
+        this.setState(setter);
+        console.log(this.state.sheets.stats.fields[k][j])
+        i++
+      }
+    }
+  }
+  */
+
+  /*
   readRuleset() {
     for (let k in this.state.sheets.stats.fields) {
-      console.log("key " + k);
       let updater = (prevState, props) => {
         return {
           ...prevState,
@@ -83,6 +169,7 @@ class App extends Component {
       this.setState(updater);
     }
   }
+  */
 
   toggleEdit = () => {
     this.state.isEditing ? (
@@ -151,6 +238,7 @@ class App extends Component {
           activeEditScreen={this.state.activeEditScreen}
           updateSheet={this.updateSheet}
           updateCharInfoField={this.updateCharInfoField}
+          initialize={this.initialize}
         />
       </div>
     );
