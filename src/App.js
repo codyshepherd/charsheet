@@ -10,7 +10,7 @@ import EditPortrait from './EditPortrait';
 import StatsSheet from './StatsSheet';
 import { loadCharacter, saveCharacter, rollDie, getUUID } from './Utilities';
 import EditStatsSheet from './EditStatsSheet';
-import { Stats } from './ADD2';
+import { Stats, Str, Dex, Con, Int, Wis, Cha } from './ADD2';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
@@ -34,6 +34,7 @@ const theme = createMuiTheme({
 class App extends Component {
   state = {
     id: undefined,
+    isInitialized: false,
     isEditing: false,
     activeScreen: <CharInfoSheet/>,
     activeEditScreen: <EditCharInfoSheet/>,
@@ -61,12 +62,12 @@ class App extends Component {
         screen: <StatsSheet/>,
         editScreen: <EditStatsSheet/>,
         fields: {
-          str: {},
-          dex: {},
-          con: {},
-          int: {},
-          wis: {},
-          cha: {},
+          Str: {},
+          Dex: {},
+          Con: {},
+          Int: {},
+          Wis: {},
+          Cha: {},
         }
       }
     },
@@ -75,6 +76,45 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.updateSheet = this.updateSheet.bind(this);
+    this.incrementStat = this.incrementStat.bind(this);
+    this.decrementStat = this.decrementStat.bind(this);
+
+    // Read in ruleset
+    for (let k in this.state.sheets.stats.fields) {
+      this.state.sheets.stats.fields[k] = Stats[k];
+          // Initialize Stats to scores of 9
+      let array = undefined;
+      if (k === "Str"){
+        array = Str(9);
+      } else if (k === "Dex") {
+        array = Dex(9);
+      } else if (k === "Con") {
+        array = Con(9);
+      } else if (k === "Int") {
+        array = Int(9);
+      } else if (k === "Wis") {
+        array = Wis(9);
+      } else if (k === "Cha") {
+        array = Cha(9);
+      }
+
+      var i = 0;
+      for (let j of Object.keys(Stats[k])){
+        if (j === "score"){
+          this.state.sheets.stats.fields[k][j][1] = 9;
+        } else {
+          this.state.sheets.stats.fields[k][j] = [Stats[k][j][0], array[i]]
+          i++
+        }
+      }
+    }
+  }
+
+  componentDidMount() {
+  }
+
+  componentDidUpdate() {
+    console.log(JSON.stringify(this.state));
   }
 
   componentDidMount() {
@@ -134,6 +174,106 @@ class App extends Component {
     this.setState({ activeEditScreen: editScreen});
   };
 
+  incrementStat(stat) {
+    let cur = this.state.sheets.stats.fields[stat]["score"] // current "score" tuple
+    var arr = this.state.sheets.stats.fields[stat]          // all substats object
+    let val = (cur[1]==25 ? 25 : cur[1]+1)                  // computed/constrained new main Stat value
+    let array = undefined;                                  // this will hold what we get from the substats function
+
+    // Call into appropriate substats function with new value
+    if (stat === "Str"){
+      array = Str(val);
+    } else if (stat === "Dex") {
+      array = Dex(val);
+    } else if (stat === "Con") {
+      array = Con(val);
+    } else if (stat === "Int") {
+      array = Int(val);
+    } else if (stat === "Wis") {
+      array = Wis(val);
+    } else if (stat === "Cha") {
+      array = Cha(val);
+    }
+
+    // build new object for passing to setState
+    var i = 0;                                  // loop counter
+    var newStatObj = {};                        // new state to be assigned
+    newStatObj["score"] = ["Score", val];
+    for (let k of Object.keys(arr)){
+      let tuple = this.state.sheets.stats.fields[stat][k];
+      if (k==="score") {
+        continue;
+      }
+      newStatObj[k] = [tuple[0], array[i]]
+      i++;
+    }
+
+    // call setState
+    this.setState(s => ({
+      ...s,
+      sheets: {
+        ...s.sheets,
+        stats: {
+          ...s.sheets.stats,
+          fields: {
+            ...s.sheets.stats.fields,
+            [stat]: newStatObj
+          }
+        }
+      }
+    }));
+  }
+
+  decrementStat(stat) {
+    let cur = this.state.sheets.stats.fields[stat]["score"] // current "score" tuple
+    var arr = this.state.sheets.stats.fields[stat]          // all substats object
+    let val = (cur[1]==0 ? 0 : cur[1]-1)                    // computed/constrained new main Stat value
+    let array = undefined;                                  // this will hold what we get from the substats function
+
+    // Call into appropriate substats function with new value
+    if (stat === "Str"){
+      array = Str(val);
+    } else if (stat === "Dex") {
+      array = Dex(val);
+    } else if (stat === "Con") {
+      array = Con(val);
+    } else if (stat === "Int") {
+      array = Int(val);
+    } else if (stat === "Wis") {
+      array = Wis(val);
+    } else if (stat === "Cha") {
+      array = Cha(val);
+    }
+
+    // build new object for passing to setState
+    var i = 0;                                  // loop counter
+    var newStatObj = {};                        // new state to be assigned
+    newStatObj["score"] = ["Score", val];
+    for (let k of Object.keys(arr)){
+      let tuple = this.state.sheets.stats.fields[stat][k];
+      if (k==="score") {
+        continue;
+      }
+      newStatObj[k] = [tuple[0], array[i]]
+      i++;
+    }
+
+    // call setState
+    this.setState(s => ({
+      ...s,
+      sheets: {
+        ...s.sheets,
+        stats: {
+          ...s.sheets.stats,
+          fields: {
+            ...s.sheets.stats.fields,
+            [stat]: newStatObj
+          }
+        }
+      }
+    }));
+  }
+
   /* Update any field in the CharInfo sheet by providing key and value */
   updateCharInfoField = (k, v) => {
     this.setState(s => ({
@@ -171,6 +311,8 @@ class App extends Component {
             activeEditScreen={this.state.activeEditScreen}
             updateSheet={this.updateSheet}
             updateCharInfoField={this.updateCharInfoField}
+            increment={this.incrementStat}
+            decrement={this.decrementStat}
           />
         </div>
       </MuiThemeProvider>

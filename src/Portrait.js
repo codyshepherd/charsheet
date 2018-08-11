@@ -37,7 +37,7 @@ function Portrait(props) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" color="secondary">
+          <Button size="small" color="primary">
             Edit
           </Button>
         </CardActions>

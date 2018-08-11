@@ -1,271 +1,264 @@
 var Stats = {
-    str: {
-        score: "",
-        hitAdj: "",
-        dmgAdj: "",
-        wgt: "",
-        press: "",
-        open: "",
-        bars: "",
+    Str: {
+        score: ["Score",""],
+        hitAdj: ["Hit Adj",""],
+        dmgAdj: ["Dmg Adj",""],
+        wgt: ["Weight Allowed",""],
+        press: ["Max Press",""],
+        open: ["Open Doors",""],
+        bars: ["Bend Bars",""],
     },
-    dex: {
-        score: "",
-        reactAdj: "",
-        mAttAdj: "",
-        defAdj: "",
+    Dex: {
+        score: ["Score",""],
+        reactAdj: ["React Adj",""],
+        mAttAdj: ["Missile Hit Adj",""],
+        defAdj: ["AC Adj",""],
     },
-    con: {
-        score: "",
-        hpAdj: "",
-        sysShk: "",
-        resSur: "",
-        poisSav: "",
-        regen: "",
+    Con: {
+        score: ["Score",""],
+        hpAdj: ["HP Adj",""],
+        sysShk: ["System Shock",""],
+        resSur: ["Res Survival",""],
+        poisSav: ["Poison Save",""],
+        regen: ["Regeneration",""],
     },
-    int: {
-        score: "",
-        numLang: "",
-        spLvl: "",
-        learn: "",
-        maxPerLvl: "",
-        illImm: "",
+    Int: {
+        score: ["Score",""],
+        numLang: ["No. Languages",""],
+        spLvl: ["Spell Level",""],
+        learn: ["Chance to Learn Spell",""],
+        maxPerLvl: ["Max Spells/Level",""],
+        illImm: ["Illusion Immunity",""],
     },
-    wis: {
-        score: "",
-        magDefAdj: "",
-        bonusSp: "",
-        fail: "",
-        spImm: "",
+    Wis: {
+        score: ["Score",""],
+        magDefAdj: ["Magic Defense Adj",""],
+        bonusSp: ["Bonus Spells",""],
+        fail: ["Chance of Spell Failure",""],
+        spImm: ["Spell Immunity",""],
     },
-    cha: {
-        score: "",
-        maxHench: "",
-        loyBase: "",
-        reactAdj: "",
+    Cha: {
+        score: ["Score",""],
+        maxHench: ["Max Henchmen",""],
+        loyBase: ["Loyalty Base",""],
+        reactAdj: ["Reaction Adj",""],
     },
 };
 
+
+// The function is required because Strength requires a switch case and expressions to 
+// handle complex inequalities
 var Str = score => {
-    var retObj = {}
     switch (true) {
         case (score == 1):
-            retObj["score"] = score;
-            retObj["hitAdj"] = -5;
-            retObj["dmgAdj"] = -4;
-            retObj["wgt"] = 1;
-            retObj["press"] = 3;
-            retObj["open"] = 1;
-            retObj["bars"] = 0;
-            break;
+            return [-5,-4,1,3,1,0]
         case (score == 2):
-            retObj["score"] = score;
-            retObj["hitAdj"] = -3;
-            retObj["dmgAdj"] = -2;
-            retObj["wgt"] = 1;
-            retObj["press"] = 5;
-            retObj["open"] = 1;
-            retObj["bars"] = 0;
-            break;
+            return [-3,-2,1,5,1,0]
         case (score == 3):
-            retObj["score"] = score;
-            retObj["hitAdj"] = -3;
-            retObj["dmgAdj"] = -1;
-            retObj["wgt"] = 5;
-            retObj["press"] = 10;
-            retObj["open"] = 2;
-            retObj["bars"] = 0;
-            break;
-        case (score == (4 || 5)):
-            retObj["score"] = score;
-            retObj["hitAdj"] = -2;
-            retObj["dmgAdj"] = -1;
-            retObj["wgt"] = 10;
-            retObj["press"] = 25;
-            retObj["open"] = 3;
-            retObj["bars"] = 0;
-            break;
-        case (score == (6 || 7)):
-            retObj["score"] = score;
-            retObj["hitAdj"] = -1;
-            retObj["dmgAdj"] = 0;
-            retObj["wgt"] = 20;
-            retObj["press"] = 55;
-            retObj["open"] = 4;
-            retObj["bars"] = 0;
-            break;
-        case (score == (8 || 9)):
-            retObj["score"] = score;
-            retObj["hitAdj"] = 0;
-            retObj["dmgAdj"] = 0;
-            retObj["wgt"] = 35;
-            retObj["press"] = 90;
-            retObj["open"] = 5;
-            retObj["bars"] = 1;
-            break;
-        case (score == (10 || 11)):
-            retObj["score"] = score;
-            retObj["hitAdj"] = 0;
-            retObj["dmgAdj"] = 0;
-            retObj["wgt"] = 40;
-            retObj["press"] = 115;
-            retObj["open"] = 6;
-            retObj["bars"] = 2;
-            break;
-        case (score == (12 || 13)):
-            retObj["score"] = score;
-            retObj["hitAdj"] = 0;
-            retObj["dmgAdj"] = 0;
-            retObj["wgt"] = 45;
-            retObj["press"] = 140;
-            retObj["open"] = 7;
-            retObj["bars"] = 4;
-            break;
-        case (score == (14 || 15)):
-            retObj["score"] = score;
-            retObj["hitAdj"] = 0;
-            retObj["dmgAdj"] = 0;
-            retObj["wgt"] = 55;
-            retObj["press"] = 170;
-            retObj["open"] = 8;
-            retObj["bars"] = 7;
-            break;
+            return [-3,-1,5,10,2,0]
+        case (score == 4) || (score == 5):
+            return [-2,-1,10,25,3,0]
+        case (score == 6) || (score==7):
+            return [-1,0,20,55,4,0]
+        case (score == 8) || (score == 9):
+            return [0,0,35,90,5,1]
+        case (score == 10) || (score == 11):
+            return [0,0,40,115,6,2]
+        case (score == 12) || (score == 13):
+            return [0,0,45,140,7,4]
+        case (score == 14) || (score == 15):
+            return [0,0,55,170,8,7]
         case (score == 16):
-            retObj["score"] = score;
-            retObj["hitAdj"] = 0;
-            retObj["dmgAdj"] = 1;
-            retObj["wgt"] = 70;
-            retObj["press"] = 195;
-            retObj["open"] = 9;
-            retObj["bars"] = 10;
-            break;
+            return [0,1,70,195,9,10]
         case (score == 17):
-            retObj["score"] = score;
-            retObj["hitAdj"] = 1;
-            retObj["dmgAdj"] = 1;
-            retObj["wgt"] = 85;
-            retObj["press"] = 220;
-            retObj["open"] = 10;
-            retObj["bars"] = 13;
-            break;
+            return [0,1,70,195,9,10]
         case (score == 18):
-            retObj["score"] = score;
-            retObj["hitAdj"] = 1;
-            retObj["dmgAdj"] = 2;
-            retObj["wgt"] = 110;
-            retObj["press"] = 255;
-            retObj["open"] = 11;
-            retObj["bars"] = 16;
-            break;
+            return [1,2,110,255,11,16]
         case (score >= 18.01 && score < 18.51):
-            retObj["score"] = score;
-            retObj["hitAdj"] = 1;
-            retObj["dmgAdj"] = 3;
-            retObj["wgt"] = 135;
-            retObj["press"] = 280;
-            retObj["open"] = 12;
-            retObj["bars"] = 20;
-            break;
+            return [1,3,135,280,12,20]
         case (score >= 18.51 && score < 18.76):
-            retObj["score"] = score;
-            retObj["hitAdj"] = 2;
-            retObj["dmgAdj"] = 3;
-            retObj["wgt"] = 160;
-            retObj["press"] = 305;
-            retObj["open"] = 13;
-            retObj["bars"] = 25;
-            break;
+            return [2,3,160,305,13,25]
         case (score >= 18.76 && score < 18.91):
-            retObj["score"] = score;
-            retObj["hitAdj"] = 2;
-            retObj["dmgAdj"] = 4;
-            retObj["wgt"] = 185;
-            retObj["press"] = 330;
-            retObj["open"] = 14;
-            retObj["bars"] = 30;
-            break;
+            return [2,4,185,330,14,30]
         case (score >= 18.91 && score < 19):
-            retObj["score"] = score;
-            retObj["hitAdj"] = 2;
-            retObj["dmgAdj"] = 5;
-            retObj["wgt"] = 235;
-            retObj["press"] = 380;
-            retObj["open"] = 15;
-            retObj["bars"] = 35;
-            break;
+            return [2,5,235,380,15,35]
         case (score > 18 && score < 18.01): // 18/00
-            retObj["score"] = score;
-            retObj["hitAdj"] = 3;
-            retObj["dmgAdj"] = 6;
-            retObj["wgt"] = 335;
-            retObj["press"] = 480;
-            retObj["open"] = 16;
-            retObj["bars"] = 40;
-            break;
+            return [3,6,335,480,16,40]
         case (score == 19):
-            retObj["score"] = score;
-            retObj["hitAdj"] = 3;
-            retObj["dmgAdj"] = 7;
-            retObj["wgt"] = 485;
-            retObj["press"] = 640;
-            retObj["open"] = 16;
-            retObj["bars"] = 50;
-            break;
+            return [3,7,485,640,16,50]
         case (score == 20):
-            retObj["score"] = score;
-            retObj["hitAdj"] = 3;
-            retObj["dmgAdj"] = 8;
-            retObj["wgt"] = 535;
-            retObj["press"] = 700;
-            retObj["open"] = 17;
-            retObj["bars"] = 60;
-            break;
+            return [3,8,535,700,17,60]
         case (score == 21):
-            retObj["score"] = score;
-            retObj["hitAdj"] = 4;
-            retObj["dmgAdj"] = 9;
-            retObj["wgt"] = 635;
-            retObj["press"] = 810;
-            retObj["open"] = 17;
-            retObj["bars"] = 70;
-            break;
+            return [4,9,635,810,17,70]
         case (score == 22):
-            retObj["score"] = score;
-            retObj["hitAdj"] = 4;
-            retObj["dmgAdj"] = 10;
-            retObj["wgt"] = 785;
-            retObj["press"] = 970;
-            retObj["open"] = 18;
-            retObj["bars"] = 80;
-            break;
+            return [4,10,785,970,18,80]
         case (score == 23):
-            retObj["score"] = score;
-            retObj["hitAdj"] = 5;
-            retObj["dmgAdj"] = 11;
-            retObj["wgt"] = 935;
-            retObj["press"] = 1130;
-            retObj["open"] = 18;
-            retObj["bars"] = 90;
-            break;
+            return [5,11,935,1130,18,90]
         case (score == 24):
-            retObj["score"] = score;
-            retObj["hitAdj"] = 6;
-            retObj["dmgAdj"] = 12;
-            retObj["wgt"] = 1235;
-            retObj["press"] = 1440;
-            retObj["open"] = 19;
-            retObj["bars"] = 95;
-            break;
+            return [6,12,1235,1440,19,95]
         case (score == 25):
-            retObj["score"] = score;
-            retObj["hitAdj"] = 7;
-            retObj["dmgAdj"] = 14;
-            retObj["wgt"] = 1535;
-            retObj["press"] = 1750;
-            retObj["open"] = 19;
-            retObj["bars"] = 99;
-            break;
+            return [7,14,1535,1750,19,99]
+        default:
+            return [0,0,0,0,0,0]
     }
-    return retObj;
 }
 
-export {Stats, Str};
+var Dex = (score) => {return DexObj[score]}
+
+var DexObj = {
+    1: [-6,-6,5],
+	2: [-4,-4,5],
+	3: [-3,-3,4],
+	4: [-2,-2,3],
+	5: [-1,-1,2],
+	6: [0,0,1],
+	7: [0,0,0],
+	8: [0,0,0],
+	9: [0,0,0],
+    10: [0,0,0],
+    11: [0,0,0],
+    12: [0,0,0],
+    13: [0,0,0],
+    14: [0,0,0],
+	15: [0,0,-1],
+	16: [1,1,-2],
+	17: [2,2,-3],
+	18: [2,2,-4],
+	19: [3,3,-4],
+	20: [3,3,-4],
+	21: [4,4,-5],
+	22: [4,4,-5],
+	23: [4,4,-5],
+	24: [5,5,-6],
+	25: [5,5,-6],
+}
+
+var Con = (score) => {
+    return ConObj[score];
+}
+
+var ConObj = {
+    1: [-3,25,30,-2,0],
+    2: [-2,30,35,-1,0],
+    3: [-2,35,40,0,0],
+    4: [-1,40,45,0,0],
+    5: [-1,45,50,0,0],
+    6: [-1,50,55,0,0],
+    7: [0,55,60,0,0],
+    8: [0,60,65,0,0],
+    9: [0,65,70,0,0],
+    10: [0,70,75,0,0],
+    11: [0,75,80,0,0],
+    12: [0,80,85,0,0],
+    13: [0,85,90,0,0],
+    14: [0,88,92,0,0],
+    15: [1,90,94,0,0],
+    16: [2,95,96,0,0],
+    17: [3,97,98,0,0], // Hit Dice bonuses (column 0) at 17 and above only apply to Warriors. Everyone else maxes at 2
+    18: [4,99,100,0,0],
+    19: [5,99,100,1,0],
+    20: [5,99,100,1,6], // see PHB for complicated rules about rolling Dit Dice at Con above 19
+    21: [6,99,100,2,5], // NOTE: only the denomenator (how many turns to regen 1 HP) is given for regen
+    22: [6,99,100,2,4], 
+    23: [6,99,100,3,3], 
+    24: [7,99,100,3,2], 
+    25: [7,100,100,4,1], 
+};
+
+var Int = (score) => {
+    return IntObj[score];
+}
+
+var IntObj = {
+    1: [0,0,0,0,0],
+    2: [1,0,0,0,0],
+    3: [1,0,0,0,0],
+    4: [1,0,0,0,0],
+    5: [1,0,0,0,0],
+    6: [1,0,0,0,0],
+    7: [1,0,0,0,0],
+    8: [1,0,0,0,0],
+    9: [2,4,35,6,0],
+    10: [2,5,40,7,0],
+    11: [2,5,45,7,0],
+    12: [3,6,50,7,0],
+    13: [3,6,55,9,0],
+    14: [4,7,60,9,0],
+    15: [4,7,65,11,0],
+    16: [5,8,70,11,0],
+    17: [6,8,75,14,0],
+    18: [7,9,85,18,	0],
+    19: [8,9,95,999,1],
+    20: [9,9,96,999,2],
+    21: [10,9,97,999,3],
+    22: [11,9,98,999,4],
+    23: [12,9,99,999,5],
+    24: [15,9,100,999,6],
+    25: [20,9,100,999,7],
+}
+
+var Wis = (score) => {
+    return WisObj[score];
+}
+
+var WisObj = {
+    1: [-6,0,80,0],
+    2: [-4,0,60,0],
+    3: [-3,0,50,0],
+    4: [-2,0,45,0],
+    5: [-1,0,40,0],
+    6: [-1,0,35,0],
+    7: [-1,0,30,0],
+    8: [0,0,25,0],
+    9: [0,0,20,0],
+    10: [0,0,15,0],
+    11: [0,0,10,0],
+    12: [0,0,5,0],
+    13: [0,1,0,0],
+    14: [0,1,0,0],
+    15: [1,2,0,0],
+    16: [2,2,0,0],
+    17: [3,3,0,0],
+    18: [4,4,0,0],
+    19: [4,[1,3],0,	["cause fear", "charm person", "command", "friends", "hypnotism"]],
+    20: [4,[2,4],0,	["forget", "hold person", "ray of enfeeblement", "scare"]],
+    21: [4,[3,5],0,	["fear"]],
+    22: [4,[4,5],0,	["charm monster", "confusion","emotion", "fumble", "suggestion"]],
+    23: [4,[1,6],0,	["chaos", "feeblemind", "hold monster", "magic jar", "quest"]],
+    24: [4,[5,6],0,	["geas", "mass suggestion", "rod of rulership"]],
+    25: [4,[6,7],0,	["antipathy/sympathy", "death spell", "mass charm"]],
+}
+
+var Cha = (score) => {
+    return ChaObj[score]
+}
+
+var ChaObj = {
+    1: [0,-8,-7],
+    2: [1,-7,-6],
+    3: [1,-6,-5],
+    4: [1,-5,-4],
+    5: [2,-4,-3],
+    6: [2,-3,-2],
+    7: [3,-2,-1],
+    8: [3,-1,0],
+    9: [4,0,0],
+    10: [4,0,0],
+    11: [4,0,0],
+    12: [5,0,0],
+    13: [5,0,1],
+    14: [6,1,2],
+    15: [7,3,3],
+    16: [8,4,5],
+    17: [10,6,6],
+    18: [15,8,7],
+    19: [20,10,8],
+    20: [25,12,9],
+    21: [30,14,10],
+    22: [35,16,11],
+    23: [40,18,12],
+    24: [45,20,13],
+    25: [50,20,14],
+}
+
+export {Stats, Str, Dex, Con, Int, Wis, Cha};
