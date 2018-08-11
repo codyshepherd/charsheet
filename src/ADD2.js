@@ -56,17 +56,17 @@ var Str = score => {
             return [-3,-2,1,5,1,0]
         case (score == 3):
             return [-3,-1,5,10,2,0]
-        case (score == (4 | 5)):
+        case (score == 4) || (score == 5):
             return [-2,-1,10,25,3,0]
-        case (score == (6 | 7)):
+        case (score == 6) || (score==7):
             return [-1,0,20,55,4,0]
-        case (score == (8 | 9)):
+        case (score == 8) || (score == 9):
             return [0,0,35,90,5,1]
-        case (score == (10 | 11)):
+        case (score == 10) || (score == 11):
             return [0,0,40,115,6,2]
-        case (score == (12 | 13)):
+        case (score == 12) || (score == 13):
             return [0,0,45,140,7,4]
-        case (score == (14 | 15)):
+        case (score == 14) || (score == 15):
             return [0,0,55,170,8,7]
         case (score == 16):
             return [0,1,70,195,9,10]

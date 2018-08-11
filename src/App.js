@@ -84,7 +84,7 @@ class App extends Component {
         if (j === "score"){
           this.state.sheets.stats.fields[k][j][1] = 9;
         } else {
-          this.state.sheets.stats.fields[k][j] = [Stats[k][j], array[i]]
+          this.state.sheets.stats.fields[k][j] = [Stats[k][j][0], array[i]]
           i++
         }
       }
@@ -95,6 +95,7 @@ class App extends Component {
   }
 
   componentDidUpdate() {
+    console.log(JSON.stringify(this.state));
   }
 
   toggleEdit = () => {
@@ -129,20 +130,49 @@ class App extends Component {
   };
 
   incrementStat(stat) {
-    let cur = this.state.sheets.stats.fields[stat]["score"]
-    let val = (cur[1]==25 ? 25 : cur[1]+1)
+    let cur = this.state.sheets.stats.fields[stat]["score"] // current "score" tuple
+    var arr = this.state.sheets.stats.fields[stat]          // all substats object
+    let val = (cur[1]==25 ? 25 : cur[1]+1)                  // computed/constrained new main Stat value
+    let array = undefined;                                  // this will hold what we get from the substats function
+
+    // Call into appropriate substats function with new value
+    if (stat === "Str"){
+      array = Str(val);
+    } else if (stat === "Dex") {
+      array = Dex(val);
+    } else if (stat === "Con") {
+      array = Con(val);
+    } else if (stat === "Int") {
+      array = Int(val);
+    } else if (stat === "Wis") {
+      array = Wis(val);
+    } else if (stat === "Cha") {
+      array = Cha(val);
+    }
+
+    // build new object for passing to setState
+    var i = 0;                                  // loop counter
+    var newStatObj = {};                        // new state to be assigned
+    newStatObj["score"] = ["Score", val];
+    for (let k of Object.keys(arr)){
+      let tuple = this.state.sheets.stats.fields[stat][k];
+      if (k==="score") {
+        continue;
+      }
+      newStatObj[k] = [tuple[0], array[i]]
+      i++;
+    }
+
+    // call setState
     this.setState(s => ({
       ...s,
       sheets: {
         ...s.sheets,
-        charInfo: {
+        stats: {
           ...s.sheets.stats,
           fields: {
             ...s.sheets.stats.fields,
-            [stat]: {
-              ...s.sheets.stats.fields[stat],
-              score: [cur[0], val]
-            }
+            [stat]: newStatObj
           }
         }
       }
@@ -150,20 +180,49 @@ class App extends Component {
   }
 
   decrementStat(stat) {
-    let cur = this.state.sheets.stats.fields[stat]["score"]
-    let val = (cur[1]==0 ? 0 : cur[1]-1)
+    let cur = this.state.sheets.stats.fields[stat]["score"] // current "score" tuple
+    var arr = this.state.sheets.stats.fields[stat]          // all substats object
+    let val = (cur[1]==0 ? 0 : cur[1]-1)                    // computed/constrained new main Stat value
+    let array = undefined;                                  // this will hold what we get from the substats function
+
+    // Call into appropriate substats function with new value
+    if (stat === "Str"){
+      array = Str(val);
+    } else if (stat === "Dex") {
+      array = Dex(val);
+    } else if (stat === "Con") {
+      array = Con(val);
+    } else if (stat === "Int") {
+      array = Int(val);
+    } else if (stat === "Wis") {
+      array = Wis(val);
+    } else if (stat === "Cha") {
+      array = Cha(val);
+    }
+
+    // build new object for passing to setState
+    var i = 0;                                  // loop counter
+    var newStatObj = {};                        // new state to be assigned
+    newStatObj["score"] = ["Score", val];
+    for (let k of Object.keys(arr)){
+      let tuple = this.state.sheets.stats.fields[stat][k];
+      if (k==="score") {
+        continue;
+      }
+      newStatObj[k] = [tuple[0], array[i]]
+      i++;
+    }
+
+    // call setState
     this.setState(s => ({
       ...s,
       sheets: {
         ...s.sheets,
-        charInfo: {
+        stats: {
           ...s.sheets.stats,
           fields: {
             ...s.sheets.stats.fields,
-            [stat]: {
-              ...s.sheets.stats.fields[stat],
-              score: [cur[0], val]
-            }
+            [stat]: newStatObj
           }
         }
       }

@@ -29,12 +29,13 @@ class EditStatsSheet extends React.Component {
     super(props);
 
     this.renderTableRows = this.renderTableRows.bind(this);
-    this.renderRow = this.renderTableRows.bind(this);
+    this.renderRow = this.renderRow.bind(this);
   };
 
   // fields: a dict of substats with first key "score"
   // stat: string, one of "Str", "Dex", "Wis" etc
-  renderRow (fields, stat) {
+  renderRow (stat) {
+    let fields = this.props.sheets.stats.fields[stat];  // val should be a dict of substats beginning with "score"
     return Object.keys(fields).map( (k) => {  // k is a string representing a substat
       let tag = fields[k][0];
       let val = fields[k][1];
@@ -78,7 +79,7 @@ class EditStatsSheet extends React.Component {
             {k.toUpperCase()}
           </Typography>
         </TableCell>
-          {this.renderRow(val, k)}
+        {this.renderRow(k, this.props.decrement, this.props.increment)}
       </TableRow>
       )
     });
