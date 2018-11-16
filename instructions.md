@@ -3,6 +3,7 @@
 ## Ensure `yarn` (and not `cmdtest`) **version 1.9.2** is installed:
 
 - `sudo apt remove cmdtest` (if necessary)
+- `curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -`
 - `echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list`
 - `sudo apt update && sudo apt install yarn`
 
