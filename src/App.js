@@ -10,7 +10,7 @@ import EditPortrait from './EditPortrait';
 import StatsSheet from './StatsSheet';
 import { loadCharacter, saveCharacter, rollDie, getUUID } from './Utilities';
 import EditStatsSheet from './EditStatsSheet';
-import { Stats, Str, Dex, Con, Int, Wis, Cha } from './ADD2';
+import { Stats, Str, Dex, Con, Int, Wis, Cha } from './DD5e';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
