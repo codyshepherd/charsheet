@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import './App.css';
 
+// Alphabetized by source file
 import MenuAppBar from './Bar';
-import ClippedDrawer from './Drawer';
 import CharInfoSheet from './CharInfoSheet';
-import EditCharInfoSheet  from './EditCharInfoSheet';
-import Portrait from './Portrait';
-import EditPortrait from './EditPortrait';
-import StatsSheet from './StatsSheet';
-import { loadCharacter, saveCharacter, rollDie, getUUID } from './Utilities';
-import EditStatsSheet from './EditStatsSheet';
 import { Stats, Str, Dex, Con, Int, Wis, Cha } from './DD5e';
+import ClippedDrawer from './Drawer';
+import EditCharInfoSheet  from './EditCharInfoSheet';
+import EditPortrait from './EditPortrait';
+import EditStatsSheet from './EditStatsSheet';
+import EditSummarySheet from './EditSummarySheet';
+import Portrait from './Portrait';
+import StatsSheet from './StatsSheet';
+import SummarySheet from './SummarySheet';
+import { loadCharacter, saveCharacter, rollDie, getUUID } from './Utilities';
+
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
@@ -36,8 +40,10 @@ class App extends Component {
     id: undefined,
     isInitialized: false,
     isEditing: false,
-    activeScreen: <CharInfoSheet/>,
-    activeEditScreen: <EditCharInfoSheet/>,
+    // activeScreen: <CharInfoSheet/>,
+    activeScreen: <SummarySheet/>,
+    //activeEditScreen: <EditCharInfoSheet/>,
+    activeEditScreen: <EditSummarySheet/>,
     portrait: undefined,
     sheets: {
       portrait: {
@@ -45,6 +51,17 @@ class App extends Component {
         screen: <Portrait/>,
         editScreen: <EditPortrait/>,
         path: undefined
+      },
+      summary:{
+        title: "Summary",
+        screen: <SummarySheet/>,
+        editScreen: <EditSummarySheet/>,
+        fields: {
+          name: "",
+          class: "",
+          race: "",
+          alignment: "",
+        },
       },
       charInfo: {
         title: "Character Info",
